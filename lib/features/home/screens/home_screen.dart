@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_parking_assistant/features/report/screens/report_screen.dart';
 import 'package:smart_parking_assistant/core/constants/app_constants.dart';
 import 'package:smart_parking_assistant/core/models/parking_spot.dart';
 import 'package:smart_parking_assistant/core/theme/app_theme.dart';
@@ -134,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
       // Floating Action Button for quick reporting
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // TODO: Navigate to report screen
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportScreen(),),);
         },
         backgroundColor: AppTheme.secondaryColor,
         icon: const Icon(Icons.add_location_alt),
