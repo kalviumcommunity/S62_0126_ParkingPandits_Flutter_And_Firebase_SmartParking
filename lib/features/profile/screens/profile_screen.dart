@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_parking_assistant/core/theme/app_theme.dart';
+import 'package:smart_parking_assistant/features/booking/screens/booking_history_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -175,7 +176,13 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          // View all bookings
+                          // Navigate to booking history screen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BookingHistoryScreen(),
+                            ),
+                          );
                         },
                         child: const Text('View All'),
                       ),
