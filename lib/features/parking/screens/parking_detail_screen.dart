@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_parking_assistant/core/models/parking_spot.dart';
+import 'package:smart_parking_assistant/features/payment/screens/checkout_screen.dart';
 
 class ParkingDetailScreen extends StatelessWidget {
   final ParkingSpot spot;
@@ -253,7 +254,7 @@ class ParkingDetailScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: spot.isAvailable
                         ? () {
-                            _showBookingDialog(context);
+                            _navigateToCheckout(context);
                           }
                         : null,
                     style: ElevatedButton.styleFrom(
@@ -330,105 +331,25 @@ class ParkingDetailScreen extends StatelessWidget {
     );
   }
   
-  void _showBookingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Confirm Booking'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.check_circle,
-                size: 60,
-                color: Colors.green,
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'Book ${spot.name}?',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Duration: 2 hours\nTotal: ₹80',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _showSuccessDialog(context);
-              },
-              child: const Text('Confirm'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-  
-  void _showSuccessDialog(BuildContext context) {
-    final bookingId = 'SPB${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}';
+  void _navigateToCheckout(BuildContext context) {
+    // Prepare booking details
+    final bookingDetails = {
+      'parkingName': spot.name,
+      'address': spot.address,
+      'spotNumber': 'A-${spot.availableSpots}', // Generate spot number
+      'duration': 2, // Default duration
+      'dateTime': 'Today, ${DateTime.now().hour}:${DateTime.now().minute}',
+      'basePrice': spot.pricePerHour.toInt() * 2,
+      'gst': (spot.pricePerHour * 2 * 0.18).toInt(),
+      'platformFee': 10,
+      'totalAmount': (spot.pricePerHour * 2 * 1.18 + 10).toInt(),
+    };
     
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Booking Successful!'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.celebration,
-                size: 60,
-                color: Colors.green,
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'You booked:',
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                spot.name,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'Booking ID: $bookingId',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context); // Go back to home
-              },
-              child: const Text('Done'),
-            ),
-          ],
-        );
-      },
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CheckoutScreen(bookingDetails: bookingDetails),
+      ),
     );
   }
 }
