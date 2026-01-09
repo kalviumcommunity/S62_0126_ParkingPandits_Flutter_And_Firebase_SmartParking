@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:smart_parking_assistant/core/theme/app_theme.dart';
-import 'package:smart_parking_assistant/features/auth/screens/welcome_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+import 'firebase_options.dart';
+import 'features/auth/screens/auth_wrapper.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  print('🔥 FIREBASE INITIALIZED');
+
   runApp(const MyApp());
 }
 
@@ -11,11 +21,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Smart Parking Assistant',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      home: const WelcomeScreen(), // Changed from HomeScreen to WelcomeScreen
+      home: AuthWrapper(),
     );
   }
 }
