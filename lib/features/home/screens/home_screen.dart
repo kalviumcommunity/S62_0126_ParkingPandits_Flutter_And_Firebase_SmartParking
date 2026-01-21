@@ -11,7 +11,10 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text('Smart Parking', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Smart Parking',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.blueAccent,
         elevation: 0,
         actions: [
@@ -28,17 +31,71 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Greeting
             Text(
-              'Hello, Driver! 👋',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+              'Welcome back 👋',
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
+            const SizedBox(height: 4),
             Text(
               user?.email ?? '',
               style: TextStyle(color: Colors.grey[600]),
             ),
+
+            const SizedBox(height: 20),
+
+            // Smart Status Card
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.local_parking,
+                      size: 40, color: Colors.green),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Parking Available Nearby',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '3 spots free • Peak hours soon',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Chip(
+                    label: const Text('LIVE'),
+                    backgroundColor: Colors.green.withOpacity(0.15),
+                    labelStyle:
+                        const TextStyle(color: Colors.green),
+                  ),
+                ],
+              ),
+            ),
+
             const SizedBox(height: 30),
 
-            // Feature Cards
+            // Features
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -46,32 +103,40 @@ class HomeScreen extends StatelessWidget {
                 mainAxisSpacing: 16,
                 children: [
                   _buildFeatureCard(
-                    context, 
-                    icon: Icons.map, 
-                    title: 'Find Parking', 
+                    context,
+                    icon: Icons.map,
+                    title: 'Find Parking',
+                    subtitle: 'Near you',
                     color: Colors.blue,
-                    onTap: () => _showSnack(context, 'Maps coming soon!'),
+                    onTap: () =>
+                        _showSnack(context, 'Map integration next 🚗'),
                   ),
                   _buildFeatureCard(
-                    context, 
-                    icon: Icons.history, 
-                    title: 'My Bookings', 
+                    context,
+                    icon: Icons.event_available,
+                    title: 'Book Slot',
+                    subtitle: 'Reserve now',
+                    color: Colors.green,
+                    onTap: () =>
+                        _showSnack(context, 'Booking flow coming 🔐'),
+                  ),
+                  _buildFeatureCard(
+                    context,
+                    icon: Icons.history,
+                    title: 'My Bookings',
+                    subtitle: 'Past & active',
                     color: Colors.orange,
-                    onTap: () => _showSnack(context, 'History coming soon!'),
+                    onTap: () =>
+                        _showSnack(context, 'History coming 📜'),
                   ),
                   _buildFeatureCard(
-                    context, 
-                    icon: Icons.person, 
-                    title: 'Profile', 
+                    context,
+                    icon: Icons.person,
+                    title: 'Profile',
+                    subtitle: 'Account info',
                     color: Colors.purple,
-                    onTap: () => _showSnack(context, 'Profile coming soon!'),
-                  ),
-                  _buildFeatureCard(
-                    context, 
-                    icon: Icons.settings, 
-                    title: 'Settings', 
-                    color: Colors.grey,
-                    onTap: () => _showSnack(context, 'Settings coming soon!'),
+                    onTap: () =>
+                        _showSnack(context, 'Profile page coming 👤'),
                   ),
                 ],
               ),
@@ -82,23 +147,45 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureCard(BuildContext context, {required IconData icon, required String title, required Color color, required VoidCallback onTap}) {
+  Widget _buildFeatureCard(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
     return InkWell(
+      borderRadius: BorderRadius.circular(16),
       onTap: onTap,
       child: Container(
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4)),
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
           ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 40, color: color),
+            Icon(icon, size: 42, color: color),
             const SizedBox(height: 12),
-            Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            Text(
+              title,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              subtitle,
+              style: TextStyle(color: Colors.grey[600], fontSize: 13),
+            ),
           ],
         ),
       ),
@@ -106,6 +193,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _showSnack(BuildContext context, String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(msg)));
   }
 }
