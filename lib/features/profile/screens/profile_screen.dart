@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_parking_assistant/core/theme/app_theme.dart';
 import 'package:smart_parking_assistant/features/booking/screens/booking_history_screen.dart';
+import 'package:smart_parking_assistant/features/profile/screens/saved_locations_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -53,9 +54,9 @@ class ProfileScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // User Name
                   const Text(
                     'John Doe',
@@ -64,9 +65,9 @@ class ProfileScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 8),
-                  
+
                   // Email
                   const Text(
                     'john.doe@example.com',
@@ -75,9 +76,9 @@ class ProfileScreen extends StatelessWidget {
                       color: Colors.grey,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Points Badge
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -110,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             // Stats Section
             Padding(
               padding: const EdgeInsets.all(20),
@@ -122,7 +123,6 @@ class ProfileScreen extends StatelessWidget {
                     style: AppTheme.headlineMedium,
                   ),
                   const SizedBox(height: 16),
-                  
                   GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -160,7 +160,7 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             // Recent Bookings
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -180,7 +180,8 @@ class ProfileScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const BookingHistoryScreen(),
+                              builder: (context) =>
+                                  const BookingHistoryScreen(),
                             ),
                           );
                         },
@@ -189,7 +190,6 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  
                   _buildRecentBooking(
                     location: 'Connaught Place',
                     date: 'Today, 10:30 AM',
@@ -198,9 +198,7 @@ class ProfileScreen extends StatelessWidget {
                     status: 'Completed',
                     statusColor: Colors.green,
                   ),
-                  
                   const SizedBox(height: 12),
-                  
                   _buildRecentBooking(
                     location: 'MG Road',
                     date: 'Yesterday, 3:45 PM',
@@ -209,9 +207,7 @@ class ProfileScreen extends StatelessWidget {
                     status: 'Completed',
                     statusColor: Colors.green,
                   ),
-                  
                   const SizedBox(height: 12),
-                  
                   _buildRecentBooking(
                     location: 'Select Citywalk',
                     date: 'Dec 28, 2:15 PM',
@@ -223,9 +219,9 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             // Settings Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -237,37 +233,38 @@ class ProfileScreen extends StatelessWidget {
                     style: AppTheme.headlineMedium,
                   ),
                   const SizedBox(height: 16),
-                  
                   _buildSettingsItem(
                     icon: Icons.notifications,
                     title: 'Notifications',
                     onTap: () {},
                   ),
-                  
                   _buildSettingsItem(
                     icon: Icons.payment,
                     title: 'Payment Methods',
                     onTap: () {},
                   ),
-                  
                   _buildSettingsItem(
                     icon: Icons.location_on,
                     title: 'Saved Locations',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SavedLocationsScreen(),
+                        ),
+                      );
+                    },
                   ),
-                  
                   _buildSettingsItem(
                     icon: Icons.security,
                     title: 'Privacy & Security',
                     onTap: () {},
                   ),
-                  
                   _buildSettingsItem(
                     icon: Icons.help,
                     title: 'Help & Support',
                     onTap: () {},
                   ),
-                  
                   _buildSettingsItem(
                     icon: Icons.info,
                     title: 'About App',
@@ -276,9 +273,9 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 30),
-            
+
             // Logout Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -306,14 +303,14 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 40),
           ],
         ),
       ),
     );
   }
-  
+
   Widget _buildStatCard({
     required IconData icon,
     required String title,
@@ -355,7 +352,7 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _buildRecentBooking({
     required String location,
     required String date,
@@ -392,9 +389,7 @@ class ProfileScreen extends StatelessWidget {
               color: AppTheme.primaryColor,
             ),
           ),
-          
           const SizedBox(width: 16),
-          
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -451,7 +446,6 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
-          
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 12,
@@ -474,7 +468,7 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _buildSettingsItem({
     required IconData icon,
     required String title,
@@ -508,7 +502,7 @@ class ProfileScreen extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
     );
   }
-  
+
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,

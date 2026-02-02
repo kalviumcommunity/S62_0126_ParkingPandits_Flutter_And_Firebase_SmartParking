@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "222583093504",
+    "project_id": "smartparkingassistant-cc9de",
+    "storage_bucket": "smartparkingassistant-cc9de.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222583093504:android:670c8ec52cb686a0b31be5",
+        "android_client_info": {
+          "package_name": "com.example.smart_parking_assistant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcZLFlMyq8iMoAA4PlmjT0xcBHHk74d4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

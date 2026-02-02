@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:smart_parking_assistant/features/report/screens/report_screen.dart';
 import 'package:smart_parking_assistant/core/constants/app_constants.dart';
 import 'package:smart_parking_assistant/core/models/parking_spot.dart';
 import 'package:smart_parking_assistant/core/theme/app_theme.dart';
+import 'package:smart_parking_assistant/features/map/screens/map_screen.dart';
 import 'package:smart_parking_assistant/features/parking/screens/parking_detail_screen.dart';
+import 'package:smart_parking_assistant/features/payment/screens/checkout_screen.dart';
 import 'package:smart_parking_assistant/features/profile/screens/profile_screen.dart';
+import 'package:smart_parking_assistant/features/report/screens/report_screen.dart';
 import 'package:smart_parking_assistant/shared/widgets/parking_spot_card.dart';
 import 'package:smart_parking_assistant/shared/widgets/search_bar.dart';
 
@@ -73,6 +75,37 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _testCheckoutNavigation() {
+    // Test navigation to checkout
+    final bookingDetails = {
+      'parkingName': 'Test Parking Spot',
+      'address': 'Test Address, City',
+      'spotNumber': 'T-01',
+      'duration': 2,
+      'dateTime': 'Today, 12:00 PM',
+      'basePrice': 80,
+      'gst': 14,
+      'platformFee': 10,
+      'totalAmount': 104,
+    };
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CheckoutScreen(bookingDetails: bookingDetails),
+      ),
+    );
+  }
+
+  void _navigateToReportScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ReportScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,9 +125,28 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         actions: [
+          // Map Button
           IconButton(
             onPressed: () {
-              // Navigate to profile screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MapScreen(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.map, color: Colors.blue),
+            tooltip: 'Map View',
+          ),
+          // Test Checkout Button (temporary)
+          IconButton(
+            onPressed: _testCheckoutNavigation,
+            icon: const Icon(Icons.payment, color: Colors.green),
+            tooltip: 'Test Checkout',
+          ),
+          // Profile Button
+          IconButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -134,9 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // Floating Action Button for quick reporting
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportScreen(),),);
-        },
+        onPressed: _navigateToReportScreen,
         backgroundColor: AppTheme.secondaryColor,
         icon: const Icon(Icons.add_location_alt),
         label: const Text('Report Spot'),

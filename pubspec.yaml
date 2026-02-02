@@ -9,19 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  # UI Components
+  
+  # UI
   google_fonts: ^6.1.0
-
-  # Navigation & State Management
-  go_router: ^13.0.1
-  riverpod: ^2.4.9
-
-  # Firebase (for later)
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.14.1
-  cloud_firestore: ^4.15.1
-  google_sign_in: ^6.1.5
 
 dev_dependencies:
   flutter_test:

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Smart Parking Assistant',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const WelcomeScreen(), // Changed from HomeScreen to WelcomeScreen
+      home: const WelcomeScreen(),
     );
   }
 }
